@@ -1,0 +1,15 @@
+apiVersion: dbgov/v1
+kind: AccessPolicy
+metadata:
+  name: etl-readwrite
+spec:
+  principal:
+    name: etl_user
+    type: user
+  grants:
+    - level: schema
+      schema: public
+      privileges:
+        - SELECT
+        - INSERT
+        - UPDATE

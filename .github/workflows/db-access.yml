@@ -1,0 +1,43 @@
+name: Database Access Governance
+
+on:
+  pull_request:
+    paths: ['policies/**']
+  push:
+    branches: [main]
+    paths: ['policies/**']
+
+jobs:
+  plan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: amzar96/dbgov@v0.0.1
+        with:
+          command: plan
+          policy_file: ./policies/*.yaml
+          db_engine: postgres
+          db_host: ${{ secrets.DBGOV_HOST }}
+          db_port: ${{ secrets.DBGOV_PORT }}
+          db_name: ${{ secrets.DBGOV_NAME }}
+          db_user: ${{ secrets.DBGOV_USER }}
+          db_password: ${{ secrets.DBGOV_PASSWORD }}
+
+  apply:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: amzar96/dbgov@v0.0.1
+        with:
+          command: apply
+          policy_file: ./policies/*.yaml
+          db_engine: postgres
+          db_host: ${{ secrets.DBGOV_HOST }}
+          db_port: ${{ secrets.DBGOV_PORT }}
+          db_name: ${{ secrets.DBGOV_NAME }}
+          db_user: ${{ secrets.DBGOV_USER }}
+          db_password: ${{ secrets.DBGOV_PASSWORD }}
