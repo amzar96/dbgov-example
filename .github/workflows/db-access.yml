@@ -1,8 +1,5 @@
 name: Database Access Governance
 
-env:
-  DBGOV_VERSION: v0.0.5
-
 on:
   pull_request:
     paths: ['policies/**']
@@ -23,7 +20,7 @@ jobs:
         with:
           files: 'policies/**/*.yaml'
 
-      - uses: amzar96/dbgov@${{ env.DBGOV_VERSION }}
+      - uses: amzar96/dbgov@v0.0.5
         if: steps.changed.outputs.any_changed == 'true'
         with:
           command: plan
@@ -43,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@${{ env.DBGOV_VERSION }}
+      - uses: amzar96/dbgov@v0.0.5
         with:
           command: apply
           policy_file: ./policies/*.yaml
