@@ -11,19 +11,30 @@ jobs:
   plan:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.1
+      - name: Get changed policy files
+        id: changed
+        uses: tj-actions/changed-files@v45
+        with:
+          files: 'policies/**/*.yaml'
+
+      - uses: amzar96/dbgov@v0.0.6
+        if: steps.changed.outputs.any_changed == 'true'
         with:
           command: plan
-          policy_file: ./policies/*.yaml
+          policy_file: ${{ steps.changed.outputs.all_changed_files }}
           db_engine: postgres
           db_host: ${{ secrets.DBGOV_HOST }}
           db_port: ${{ secrets.DBGOV_PORT }}
           db_name: ${{ secrets.DBGOV_NAME }}
           db_user: ${{ secrets.DBGOV_USER }}
           db_password: ${{ secrets.DBGOV_PASSWORD }}
+          db_options: ${{ secrets.DBGOV_OPTIONS }}
+          db_sslmode: ${{ secrets.DBGOV_SSLMODE }}
 
   apply:
     if: github.event_name == 'push'
@@ -31,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.1
+      - uses: amzar96/dbgov@v0.0.6
         with:
           command: apply
           policy_file: ./policies/*.yaml
@@ -41,3 +52,5 @@ jobs:
           db_name: ${{ secrets.DBGOV_NAME }}
           db_user: ${{ secrets.DBGOV_USER }}
           db_password: ${{ secrets.DBGOV_PASSWORD }}
+          db_options: ${{ secrets.DBGOV_OPTIONS }}
+          db_sslmode: ${{ secrets.DBGOV_SSLMODE }}
