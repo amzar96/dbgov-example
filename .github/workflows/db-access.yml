@@ -42,10 +42,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Get changed policy files
+        id: changed
+        uses: tj-actions/changed-files@v45
+        with:
+          files: 'policies/**/*.yaml'
+
       - uses: amzar96/dbgov@v0.0.6
+        if: steps.changed.outputs.any_changed == 'true'
         with:
           command: apply
-          policy_file: ./policies/*.yaml
+          policy_file: ${{ steps.changed.outputs.all_changed_files }}
           db_engine: postgres
           db_host: ${{ secrets.DBGOV_HOST }}
           db_port: ${{ secrets.DBGOV_PORT }}

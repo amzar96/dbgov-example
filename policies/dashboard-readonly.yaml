@@ -15,4 +15,3 @@ spec:
         - customers
       privileges:
         - SELECT
-        - UPDATE
