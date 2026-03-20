@@ -12,5 +12,6 @@ spec:
       tables:
         - users
         - orders
+        - customers
       privileges:
         - SELECT
