@@ -1,0 +1,11 @@
+apiVersion: dbgov/v1
+kind: Principal
+metadata:
+  name: user-amzar
+spec:
+  name: user_amzar
+  type: user
+  password:
+    strategy: randomize
+  options:
+    - LOGIN
