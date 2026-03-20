@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.1
+      - uses: amzar96/dbgov@v0.0.2
         with:
           command: plan
           policy_file: ./policies/*.yaml
@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.1
+      - uses: amzar96/dbgov@v0.0.2
         with:
           command: apply
           policy_file: ./policies/*.yaml
