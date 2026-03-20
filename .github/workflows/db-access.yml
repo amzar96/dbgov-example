@@ -22,7 +22,7 @@ jobs:
         with:
           files: 'policies/**/*.yaml'
 
-      - uses: amzar96/dbgov@v0.0.6
+      - uses: amzar96/dbgov@v0.0.8
         if: steps.changed.outputs.any_changed == 'true'
         with:
           command: plan
@@ -48,7 +48,7 @@ jobs:
         with:
           files: 'policies/**/*.yaml'
 
-      - uses: amzar96/dbgov@v0.0.6
+      - uses: amzar96/dbgov@v0.0.8
         if: steps.changed.outputs.any_changed == 'true'
         with:
           command: apply

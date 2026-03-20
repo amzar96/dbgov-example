@@ -1,0 +1,8 @@
+apiVersion: dbgov/v1
+kind: RoleBinding
+metadata:
+  name: bind-amzar-to-dashboard
+spec:
+  role: dashboard_user
+  members:
+    - user_amzar
