@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.2
+      - uses: amzar96/dbgov@v0.0.3
         with:
           command: plan
           policy_file: ./policies/*.yaml
@@ -24,6 +24,7 @@ jobs:
           db_name: ${{ secrets.DBGOV_NAME }}
           db_user: ${{ secrets.DBGOV_USER }}
           db_password: ${{ secrets.DBGOV_PASSWORD }}
+          db_options: ${{ secrets.DBGOV_OPTIONS }}
 
   apply:
     if: github.event_name == 'push'
@@ -31,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: amzar96/dbgov@v0.0.2
+      - uses: amzar96/dbgov@v0.0.3
         with:
           command: apply
           policy_file: ./policies/*.yaml
@@ -41,3 +42,4 @@ jobs:
           db_name: ${{ secrets.DBGOV_NAME }}
           db_user: ${{ secrets.DBGOV_USER }}
           db_password: ${{ secrets.DBGOV_PASSWORD }}
+          db_options: ${{ secrets.DBGOV_OPTIONS }}
