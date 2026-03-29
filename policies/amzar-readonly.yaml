@@ -1,0 +1,17 @@
+apiVersion: dbgov/v1
+kind: AccessPolicy
+metadata:
+  name: amzar-readonly
+spec:
+  principal:
+    name: user_amzar
+    type: user
+  grants:
+    - level: table
+      schema: public
+      tables:
+        - users
+        - orders
+        - customers
+      privileges:
+        - SELECT

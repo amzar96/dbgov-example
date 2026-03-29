@@ -6,6 +6,7 @@ spec:
   name: user_amzar
   type: user
   password:
-    strategy: randomize
+    strategy: fromEnv
+    envVar: DBGOV_USER_AMZAR_PW
   options:
     - LOGIN
